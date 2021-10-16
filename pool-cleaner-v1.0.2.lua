@@ -67,19 +67,19 @@ function Start ()
   while comp_id <= finish_id do -- main while loop
   	local x = comp_id + 1;
   	local object_name = pool[comp_id];
-  	while x <= finish_id do -- steps thru each subsequent object to see if there is a match
-  		if pool[x] ~= nil and object_name ~= nil then
-  			if match(strip(pool[x], x), strip(object_name, comp_id)) == true then
-           if get_handle(pool_type..' '..x) ~= nil then
+    if object_name ~= nil and get_handle(pool_type..' '..comp_id) ~= nil then
+  	   while x <= finish_id do -- steps thru each subsequent object to see if there is a match
+  			if pool[x] ~= nil and get_handle(pool_type..' '..x) ~= nil then
+  				if match(strip(pool[x], x), strip(object_name, comp_id)) == true then
               ma_print('FOUND MATCH: {'..pool[comp_id]..', '..pool[x]..'}')
               ma_print('DELETING: '..pool[x])
               ma_cmd('Delete '..pool_type..' '..x)
               killcount = killcount + 1
-           end
+  				end
   			end
-  		end
-  		x = x + 1
-  	end
+  		 x = x + 1
+  	   end
+    end
   	comp_id = comp_id + 1
   end
   ma_print('DELETED '..killcount..' '..string.upper(pool_type)..'S')
