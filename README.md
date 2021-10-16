@@ -15,3 +15,4 @@ It will comb thru an assigned pool from a given start object ID to end object ID
 
 # Current showfile of death record (1479 out of ~3000 are dupes)
 v1.0.2: 40m44s
+v1.0.3: 19m49s
