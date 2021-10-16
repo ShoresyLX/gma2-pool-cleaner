@@ -11,3 +11,7 @@ It will comb thru an assigned pool from a given start object ID to end object ID
   - Alphabetization (and/or other sorting features)
 
   - Pool compression, i.e. move all objects as close to postion 1 as posible
+
+
+# Current showfile of death record (1479 out of ~3000 are dupes)
+v1.0.2: 40m44s
