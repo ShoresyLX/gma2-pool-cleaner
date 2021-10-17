@@ -1,4 +1,4 @@
--- GMA2 Pool Cleaner v1.0.3
+-- GMA2 Pool Cleaner v1.0.3b
 -- Last Updated: 10.16.2021
 -- Creator: Calea Designs
 -- Contact: CaleaDesigns@gmail.com
