@@ -1,5 +1,5 @@
--- GMA2 Pool Cleaner v1.0.3c
--- Last Updated: 11.06.2021
+-- GMA2 Pool Cleaner v1.0.3d
+-- Last Updated: 11.07.2021
 -- Creator: Calea Designs
 -- Contact: CaleaDesigns@gmail.com
 --
@@ -21,12 +21,13 @@
 local poolType = "macro" -- enter which pool to clean, MUST LEAVE ''
 local startId = 1 -- which pool object to start at
 local finishId = 30 -- which pool object to end at
+local deleteUnlabeled = false -- set to true to delete items you never labeled ex. 'macro 35'
 
 -- define GMA2 API functions
 local maPrint = gma.echo
 local maCmd = gma.cmd
 local getHandle = gma.show.getobj.handle
-local getName = gma.show.getobj.name
+local getName = gma.show.getobj.label
 
 -- shortcut functions
 function match(a, b) -- matches strings, returns false if they are not strings
@@ -35,23 +36,17 @@ function match(a, b) -- matches strings, returns false if they are not strings
             return true
         else
             return false
-        end
+        end -- if match
     else
         return false
-    end
-end
-
-function strip(text, n) -- removes GMA2 pool ID numbers from object names
-    if type(text) == "string" then
-        text = string.gsub(text, tostring(n), "")
-    end
-    return text
-end
+    end -- if strings
+end -- function match
 
 --plugin start
 function Start()
     maPrint("POOL CLEANER v1.0.3 ACTIVATED")
     local pool = {} -- where we will load pool information
+
     -- loading phase
     maPrint("LOADING OBJECTS FROM "..string.upper(poolType).." POOL")
     for i = startId, finishId do -- loads required pool into a table
@@ -61,6 +56,7 @@ function Start()
             pool[i] = a
         end
     end
+
     -- comparison and deletion phase
     maPrint("LOAD SUCCESSFUL, BEGINNING DELETION")
     local killcount = 0 -- counter for deleted objects
@@ -69,18 +65,44 @@ function Start()
         local object_name = pool[compId]
         if object_name ~= nil and getHandle(poolType .. " " .. compId) ~= nil then -- existence?
             for x = v, finishId do
-                if pool[x] ~= nil and getHandle(poolType .. " " .. x) ~= nil then -- existence?
-                    if match(strip(pool[x], x), strip(object_name, compId)) == true then -- checks for match disregarding pool ID number
-                        maPrint("FOUND MATCH: {" .. pool[compId] .. ", " .. pool[x] .. "}")
-                        maPrint("DELETING: " .. pool[x])
+                if pool[x] ~= nil and getHandle(poolType .. " " .. x) ~= nil and match(pool[x], object_name) == true then -- existence, then check for match
+                        maPrint("FOUND MATCH: {" .. pool[compId] .. ": #"..compId.." & #"..x.."}")
+                        maPrint("DELETING: " .. pool[x].." #"..x)
                         maCmd("Delete " .. poolType .. " " .. x)
                         killcount = killcount + 1
-                    end -- duplicate check
-                end -- existence 2
+                end -- existence 2 and match
             end -- inner for
         end -- existence 1
     end -- Outer for
+
+    -- if desired, can also check for pool items you created but never labeled
+    -- i.e. 'macro 254' or 'effect 87'
+    -- deleteUnlabeled must be set 'true' at the top of the script
+    if deleteUnlabeled == true then -- if it was set, delete unlabeled items
+        local doofcount = 0
+        maPrint("LET'S SEE HOW MANY TIMES YOU FORGOT TO LABEL SOMETHING...")
+        for i = startId, finishId do
+            if getHandle(poolType.." "..i) ~= nil and pool[i] == nil then -- if there's something there but no label...
+                maPrint("FOUND SOMETHING YOU NEVER LABELED YOU GOOBER")
+                maPrint("DELETING "..string.upper(poolType).." "..i.."...HOPE IT WASN'T IMPORTANT")
+                maCmd("Delete "..poolType.." "..i)
+                doofcount = doofcount + 1
+            end -- existence and match
+        end -- for loop
+        killcount = killcount + doofcount
+        maPrint("THAT'S "..doofcount.." TIMES YOU MADE SOMETHING YOU DIDN'T LABEL")
+        if doofcount > 20 then
+            maPrint("YOU'RE A MEGA DOOF")
+        end -- if megadoof
+    end -- if deleteUnlabeled
+
     maPrint("DELETED " .. killcount .. " " .. string.upper(poolType) .. "S")
+
+    if killcount > 1000 then
+        maPrint("YIKES")
+    end -- if showfile was gross
+
     maPrint("POOL CLEANER FINISHED")
+    maPrint("Remember: No matter where you go, there you are. - BB")
 end
 return Start

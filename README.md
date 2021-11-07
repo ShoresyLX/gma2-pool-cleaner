@@ -7,7 +7,10 @@ It will comb thru an assigned pool from a given start object ID to end object ID
 
 This is my first "completed" piece of code after about a month with C# in Unity and only a few days with Lua. So while keeping that in mind, constructive feedback is welcome.
 
-### Current showfile of death record (1479 out of ~3000 are dupes)
+### Current showfile of death record (1480 out of ~3000 are known dupes)
+
+- v1.0.3d: 10m05s
+
 - v1.0.3: 19m49s
 
 - v1.0.2: 40m44s
