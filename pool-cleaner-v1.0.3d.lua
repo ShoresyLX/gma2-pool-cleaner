@@ -30,7 +30,7 @@ local getHandle = gma.show.getobj.handle
 local getName = gma.show.getobj.label
 
 -- shortcut functions
-function match(a, b) -- matches strings, returns false if they are not strings
+local function match(a, b) -- matches strings, returns false if they are not strings
     if type(a) == "string" and type(b) == "string" then
         if string.find(string.lower(a), string.lower(b)) ~= nil and string.len(a) == string.len(b) then
             return true
@@ -43,7 +43,7 @@ function match(a, b) -- matches strings, returns false if they are not strings
 end -- function match
 
 --plugin start
-function Start()
+local function Start()
     maPrint("POOL CLEANER v1.0.3 ACTIVATED")
     local pool = {} -- where we will load pool information
 
