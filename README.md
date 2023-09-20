@@ -1,3 +1,6 @@
+# Update 2023.09.20
+This project is currently semi-abandoned. I have transferred it to my new primary account, but am not sure when I might return to it, or if I will considering I'm finally starting to see more people runnng MA3 over Mode 2. I do have future plans to study Lua, so I may come back here as an exercise at some point. At any rate, it still works as advertised as is.
+
 # gma2-pool-cleaner
 Cleans up your object pools
 
