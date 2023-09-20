@@ -1,9 +1,9 @@
 -- GMA2 Pool Cleaner v1.0.3d
--- Last Updated: 11.07.2021
--- Creator: Calea Designs
--- Contact: CaleaDesigns@gmail.com
+-- Last Updated: 2021.07.11 (About info 2023.09.20) 
+-- Creator: ShoresyLX
+-- Contact: shoresylx@proton.me
 --
--- Project Repository: https://github.com/Calea-Designs/gma2-pool-cleaner
+-- Project Repository: https://github.com/ShoresyLX/gma2-pool-cleaner
 --
 -- GMA2 Pool Cleaner is designed to comb through a desired object pool to find
 -- and delete objects with duplicate names
